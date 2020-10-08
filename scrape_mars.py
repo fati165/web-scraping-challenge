@@ -68,5 +68,46 @@ def facts_scrape():
     mars.columns= ["x","y"]
     return mars.to_html()
 
+def hemisphere_scrape():
+    browser = init_browser()
+    USGSurl= "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
+    browser.visit(USGSurl)
 
-image_scrape()
+    USGSurl="https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
+    hemisphere_url="https://astrogeology.usgs.gov"
+
+    browser.visit(USGSurl)
+    html = browser.html
+    soup = BeautifulSoup(html, 'html.parser')
+    main = soup.find_all('div', class_='item')
+
+    #make list for the img urls
+    title=[]
+    hem_img= []
+
+    for mars in main:
+        title = mars.find('h3').text
+        
+        #link to image
+        url_linkImage = mars.find('a')['href']
+        
+        #then add the moon url to the link for image to direct the path there
+        img_url= hemisphere_url+url_linkImage
+        
+        #go to site, parse!
+        browser.visit(img_url)
+        html = browser.html
+        soup = BeautifulSoup(html, 'html.parser')
+        
+        #then scrape for the image inside the site and print
+        img_original= soup.find('div',class_='downloads')
+        hem_url=img_original.find('a')['href']
+        print(hem_url)
+        
+        
+        img_data=dict({'title':title, 'img_url':hem_url})
+        hem_img.append(img_data)
+    #no need to for loop because it will repeatedly show all 4, 4 times    
+    print (hem_img)
+    browser.quit()
+    return mars
