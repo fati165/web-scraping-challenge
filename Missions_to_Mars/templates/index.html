@@ -22,8 +22,7 @@
                 <div class="media">
                     <div class="media-body">
                         <h4>Latest Mars News</h4>
-                        <h5 style="color: #DC143C">{{mars_scrape.news_title}}</h5>
-                        <p style="color: #8B0000">{{mars_scrape.new_p}}</p>
+                        <h5 style="color: #DC143C">{{mars_.news_scrape}}</h5>
                     </div>
                 </div>
             </div>
@@ -34,7 +33,7 @@
                 <div class="col-lg-8 col-md-8 col-sm-12">
                 <h4>Featured Mars Image</h4>
                     <!-- If Images are False/None/Non-Existent, Then Default to Error Message -->
-                    <img src="{{mars.featured_image | default('static/images/error.png', true) }}" class="img-responsive" style="max-width:100%; max-height: auto;" alt="Mars Featured Image"/>
+                    <img src="{{image_scrape.image_scrape | default('static/images/error.png', true) }}" class="img-responsive" style="max-width:100%; max-height: auto;" alt="Mars Featured Image"/>
                 </div>
                
                     <!-- Mars Facts -->
@@ -42,7 +41,7 @@
                     <div class="row" id="mars-facts">
                         <div class="col-md-12">
                             <h4>Mars Facts</h4>
-                            {{mars.facts | safe}}
+                            {{mars_.facts_scrape | safe}}
                         </div>
                     </div>
                 </div>
@@ -54,7 +53,7 @@
             <hr>
             <div class="col-md-12">
                 <div class="row" id="mars-hemispheres">
-                    {% for hemisphere in mars.hemispheres %}
+                    {% for m in mars_.hemisphere_scrape %}
                     <div class="col-md-6">
                         <div class="card text-white bg-danger" style="margin: 30px;">
                             <!-- If Images are False/None/Non-Existent, Then Default to Error Message -->
