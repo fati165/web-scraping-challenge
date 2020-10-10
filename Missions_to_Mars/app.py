@@ -21,20 +21,17 @@ def homepage():
     mars_scrape = mongo.db.mars_scrape.find_one()
 
     # Return template and data
-    return render_template("index.html", mars_scrape=mars_scrape)
+    return render_template("index.html", mars_=mars_scrape)
 
 @app.route("/scrape")
 def scrape(): 
 
     # Run scrapped functions
-    mars_scrape = mongo.db.mars_scrape.find_one()
-    scrape.update({}, mars_scrape, upsert=True)
+    mars_ = mongo.db.mars_.find_one()
+    scrape.update({}, mars_, upsert=True)
     #return redirect("http://localhost:5000/", code=302)
 
 #refer pymongo activities
-
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
