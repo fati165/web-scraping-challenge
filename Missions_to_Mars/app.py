@@ -18,18 +18,19 @@ mongo = PyMongo(app)
 def homepage(): 
 
     # Find data
-    mars_scrape = mongo.db.mars_scrape.find_one()
+    marsinfo = mongo.db.marsdata.find_one()
 
     # Return template and data
-    return render_template("index.html", mars_=mars_scrape)
+    return render_template("index.html", mars_=marsinfo)
 
 @app.route("/scrape")
 def scrape(): 
-
+    marsinfo = mongo.db.marsdata
     # Run scrapped functions
-    mars_ = mongo.db.mars_.find_one()
-    scrape.update({}, mars_, upsert=True)
-    #return redirect("http://localhost:5000/", code=302)
+    _mars = scrape_mars.mars_scrape()
+    marsinfo.replace_one({}, _mars, upsert=True)
+    return "Scraping Succefull"
+    #return render_template("index.html", mars_=mars_scrape)
 
 #refer pymongo activities
 
