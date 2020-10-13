@@ -71,17 +71,15 @@ def facts_scrape():
 
     browser.quit()
 
-    return mars
+    return mars.to_html()
 
 def hemisphere_scrape():
     browser = init_browser()
     USGSurl= "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
     browser.visit(USGSurl)
 
-    USGSurl="https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
     hemisphere_url="https://astrogeology.usgs.gov"
 
-    browser.visit(USGSurl)
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
     main = soup.find_all('div', class_='item')
@@ -113,8 +111,8 @@ def hemisphere_scrape():
         img_data=dict({'title':title, 'img_url':hem_url})
         hem_img.append(img_data)
     #no need to for loop because it will repeatedly show all 4, 4 times    
-    print (hem_img)
     browser.quit()
+    return hem_img
     #return mars
 
 def mars_scrape():
@@ -126,6 +124,3 @@ def mars_scrape():
            }
     return mars_
 
-
-
-mars_scrape()
